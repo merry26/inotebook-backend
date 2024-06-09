@@ -12,9 +12,9 @@ const routerNotes = require("./routes/notes");
 
 // Middleware setup
 app.use(cors({
-    origin:["https://inotebook-frontend-omega.vercel.app"],
-    methods:["POST","GET","PUT","DELETE"],
-    credentials:true
+    origin: ["https://inotebook-frontend-omega.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true
 }));
 app.use(express.json()); // Body parser middleware
 
@@ -27,7 +27,7 @@ const BASE_URL = process.env.BASE_URL;
 const MONGO_URL = process.env.DATABASE;
 
 // Connect to MongoDB
-mongoose.connect(MONGO_URL)
+mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("MongoDB database connected");
         // Start the server
@@ -35,4 +35,7 @@ mongoose.connect(MONGO_URL)
             console.log(`Express server is running at ${BASE_URL}`);
         });
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+        console.error("MongoDB connection error:", error);
+        process.exit(1); // Exit the process if unable to connect to MongoDB
+    });
