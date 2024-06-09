@@ -12,7 +12,7 @@ const routerNotes = require("./routes/notes");
 
 // Middleware setup
 app.use(cors({
-    origin:["inotebook-frontend-omega.vercel.app"],
+    origin:["https://inotebook-frontend-omega.vercel.app"],
     methods:["POST","GET","PUT","DELETE"],
     credentials:true
 }));
